@@ -33,6 +33,10 @@ Features
 </ul>
 
 
+Compatibility
+----------------
+<b>DBXDroid</b> library is compatible for Android 2.3+
+
 Installation
 ---------------
 To use <strong>DBXDroid</strong> , 
@@ -112,16 +116,15 @@ try {
 
 ```
 
-<strong>6. Fetching Entries </strong>
+<strong>7. Fetching Entries </strong>
 ```java
 
 DBXResult dbxResult = studentDatabase.getEntries("students");
-String totalResult = "";
 String[][] result = dbxResult.getResults();
 
 ```
 
-<strong>7. Access Database Directly </strong>
+<strong>8. Access Database Directly </strong>
 ```java
 
 public SQLiteDatabase getDatabase();
@@ -130,7 +133,7 @@ public SQLiteDatabase getDatabase();
 
 This method returns <b>SQLiteDatabase object reference</b> for your database, So you can interact normally and directly to database
 
-<strong>8. Closing Database </strong>
+<strong>9. Closing Database </strong>
 ```java
 
 try {
