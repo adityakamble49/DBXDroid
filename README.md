@@ -6,9 +6,9 @@ Index
 * [Description](#description)
 * [Features](#features)
 * [Compatibility](#compatibility)
-* [License](#license)
 * [Installation](#installation)
 * [Use](#use)
+* [License](#license)
 
 
 Description
@@ -29,13 +29,13 @@ Features
 <li>Add Tables to database</li>
 <li>Insert new entry to tables</li>
 <li>Fetch entries from tables</li>
-<li>Ability to interact with database directly using getDatabase() function.</li>
+<li>Ability to interact with database directly using <b>getDatabase()</b> function.</li>
 </ul>
 
 
 Installation
 ---------------
-To use <string>DBXDroid</strong> , 
+To use <strong>DBXDroid</strong> , 
 <ul>
 <li>Download Library</li>
 <li>Extract it to DBXDroid directory</li>
@@ -49,35 +49,100 @@ Use
 -------
 <strong>1. Define Database</strong>
 ```java
+
+DBXDatabase studentDatabase;
 studentDatabase = new DBXDatabase("college.db", this);
+
 ```
 
 <strong>2. Create ColumnList </strong>
 ```java
+
 DBXColumnList studentColumns = new DBXColumnList();
 studentColumns.addColumn(new DBXColumn("student_id",DBXFieldType.INTEGER));
 studentColumns.addColumn(new DBXColumn("student_name",DBXFieldType.TEXT));
 studentColumns.addColumn(new DBXColumn("student_dept",DBXFieldType.VARCHAR));
+
 ```
 <strong>3. Add new Table to Database </strong>
 ```java
-DBXColumnList studentColumns = new DBXColumnList();
-studentColumns.addColumn(new DBXColumn("student_id",DBXFieldType.INTEGER));
-studentColumns.addColumn(new DBXColumn("student_name",DBXFieldType.TEXT));
-studentColumns.addColumn(new DBXColumn("student_dept",DBXFieldType.VARCHAR));
+
 studentDatabase.addTable(new DBXTable("students", studentColumns));
+
 ```
 
 <strong>4. Create Database </strong>
 ```java
+
 try {
-		studentDatabase.createDatabase();
-		
-	} catch (Exception e) {
-	
-		e.printStackTrace();
-	}
+	studentDatabase.createDatabase();
+} catch (Exception e) {
+	e.printStackTrace();
+}
+
 ```
+
+<strong>5. Open Database </strong>
+```java
+
+try {
+	studentDatabase.openDatabase();
+} catch (Exception e) {
+	e.printStackTrace();
+}
+
+```
+
+<strong>6. Inserting new Entry to table </strong>
+```java
+
+DBXFieldValuePairList studentFieldsList = new DBXFieldValuePairList();
+studentFieldsList.addFieldValuePair(new DBXFieldValuePair("student_id", Integer.parseInt(studentID)));
+studentFieldsList.addFieldValuePair(new DBXFieldValuePair("student_name", studentName));
+studentFieldsList.addFieldValuePair(new DBXFieldValuePair("student_dept", studentDept));
+
+try {
+	if (studentDatabase.insertEntry("students", studentFieldsList) != -1) {
+
+		Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
+	}
+} catch (Exception e) {
+	e.printStackTrace();
+}
+
+```
+
+<strong>6. Fetching Entries </strong>
+```java
+
+DBXResult dbxResult = studentDatabase.getEntries("students");
+String totalResult = "";
+String[][] result = dbxResult.getResults();
+
+```
+
+<strong>7. Access Database Directly </strong>
+```java
+
+public SQLiteDatabase getDatabase();
+
+```
+
+This method returns <b>SQLiteDatabase object reference</b> for your database, So you can interact normally and directly to database
+
+<strong>8. Closing Database </strong>
+```java
+
+try {
+	studentDatabase.closeDatabase();
+} catch (Exception e) {
+	e.printStackTrace();
+}
+
+```
+
+<b>Refer <a href="https://github.com/adityakamble49/DBXDroidDemo">DBXDroidDemo</a> for Full Demo</b>
+
 
 License
 -------
